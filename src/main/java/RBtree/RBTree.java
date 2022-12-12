@@ -37,7 +37,7 @@ public class RBTree<N extends Comparable<N>> {
                     ", left=" + (left == null ? null : left.value) +
                     ", right=" + (right == null ? null : right.value) +
                     ", parent=" + (parent == null ? null : parent.value) +
-                    ", color=" + color +
+                    ", color=" + (color ? "red" : "black") +
                     '}';
         }
     }
@@ -56,7 +56,7 @@ public class RBTree<N extends Comparable<N>> {
         afterInsertResetTree(gp);
     }
 
-    // 付清节点是黑的
+    // 父亲节点是黑的
     private void parentBlack(TreeNode<N> node) {
         node.color = RED;
     }
@@ -97,7 +97,7 @@ public class RBTree<N extends Comparable<N>> {
         // 染色
         node.color = BLACK;
         node.left.color = RED;
-        node.right.color = BLACK;
+        node.right.color = RED;
     }
     // 父节点左节点，当前节点右节点
     private void nodeRightParentLeft(TreeNode<N> node) {
@@ -106,7 +106,7 @@ public class RBTree<N extends Comparable<N>> {
         // 染色
         node.color = BLACK;
         node.left.color = RED;
-        node.right.color = BLACK;
+        node.right.color = RED;
     }
 
     // 左旋
@@ -282,6 +282,9 @@ public class RBTree<N extends Comparable<N>> {
     }
 
     public void printValue() {
+        if (root == null) {
+            return;
+        }
         Deque<TreeNode<N>> deque = new LinkedList<>();
         deque.offer(root);
         while (!deque.isEmpty()) {
