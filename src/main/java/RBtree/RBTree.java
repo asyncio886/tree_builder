@@ -263,8 +263,18 @@ public class RBTree<N extends Comparable<N>> {
         return null;
     }
 
+    private boolean find(TreeNode<N> node, N val) {
+        if (node == null) {
+            return false;
+        }
+        if (val.equals(node.value)) {
+            return true;
+        }
+        return find(node.left, val) || find(node.right, val);
+    }
+
     public boolean contain(N val) {
-        return false;
+        return find(root, val);
     }
 
     public int getSize() {
